@@ -23,20 +23,6 @@
         android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/password_et"
-        android:layout_width="301dp"
-        android:layout_height="55dp"
-        android:layout_alignStart="@+id/username_et"
-        android:layout_below="@+id/username_et"
-        android:layout_marginTop="26dp"
-        android:background="@drawable/textbox_background"
-        android:ems="10"
-        android:hint="   Password"
-        android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#dddddd" />
-
-    <EditText
         android:id="@+id/username_et"
         android:layout_width="297dp"
         android:layout_height="55dp"
@@ -49,6 +35,20 @@
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="#DDDDDD" />
+
+    <EditText
+        android:id="@+id/password_et"
+        android:layout_width="301dp"
+        android:layout_height="55dp"
+        android:layout_alignStart="@+id/username_et"
+        android:layout_below="@+id/username_et"
+        android:layout_marginTop="26dp"
+        android:background="@drawable/textbox_background"
+        android:ems="10"
+        android:hint="   Password"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#dddddd" />
 
     <Button
         android:id="@+id/login_btn"
