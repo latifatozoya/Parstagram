@@ -20,16 +20,14 @@ import android.widget.Toast;
 import com.app.latifat.parstagram.model.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 
 import java.io.File;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private EditText descriptionInput;
-    private Button createButton;
-    private Button logoutBtn;
+    private EditText captionInput;
+    private Button postBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +37,10 @@ public class HomeActivity extends AppCompatActivity {
         loadTopPosts();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        logoutBtn = (Button) findViewById(R.id.logout_btn);
-        descriptionInput = (EditText) findViewById(R.id.description_et);
-        createButton = (Button) findViewById(R.id.create_btn);
+        captionInput = (EditText) findViewById(R.id.caption_et);
+        postBtn = (Button) findViewById(R.id.post_btn);
 
         setSupportActionBar(toolbar);
-
-        logoutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ParseUser.logOut();
-                ParseUser currentUser = ParseUser.getCurrentUser();
-
-                final Intent intent = new Intent(HomeActivity.this,MainActivity.class);
-                startActivity(intent);
-            }
-        });
 
         View view = findViewById(R.id.home);
         onLaunchCamera(view);
@@ -87,16 +73,11 @@ public class HomeActivity extends AppCompatActivity {
     File photoFile;
 
     public void onLaunchCamera(View view) {
-        // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Create a File reference to access to future access
         photoFile = getPhotoFileUri(photoFileName);
 
         Uri fileProvider = FileProvider.getUriForFile(HomeActivity.this, "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
         if (intent.resolveActivity(getPackageManager()) != null) {
             // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -119,14 +100,13 @@ public class HomeActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
                 ImageView ivPreview = (ImageView) findViewById(R.id.ivPreview);
                 ivPreview.setImageBitmap(takenImage);
-            } else { // Result was a failure
-                Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Picture was not taken!", Toast.LENGTH_SHORT).show();
             }
         }
     }
