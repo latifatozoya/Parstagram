@@ -18,27 +18,30 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.latifat.parstagram.model.Post;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.util.List;
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity {
 
+    PostAdapter postAdapter;
+    ArrayList<Post> posts;
     private static final String imagePath = "photo.jpg";
     private EditText captionInput;
     private Button postBtn;
+    private Button feed_Button;
+    private Button profile_Button;
+    private Button pic_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-        loadTopPosts();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         captionInput = (EditText) findViewById(R.id.caption_et);
@@ -48,6 +51,37 @@ public class HomeActivity extends AppCompatActivity {
 
         View view = findViewById(R.id.home);
         onLaunchCamera(view);
+
+        feed_Button = (Button) findViewById(R.id.feedbtn);
+        pic_button = (Button) findViewById(R.id.picbtn);
+        profile_Button = (Button) findViewById(R.id.profilebtn);
+
+        posts = new ArrayList<>();
+        postAdapter = new PostAdapter(posts);
+
+        feed_Button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                final Intent intent = new Intent(HomeActivity.this,FeedActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        profile_Button.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+                final Intent intent = new Intent(HomeActivity.this,LogoutActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        pic_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(HomeActivity.this,HomeActivity.class);
+                startActivity(intent);
+            }
+        });
 
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,9 +97,10 @@ public class HomeActivity extends AppCompatActivity {
                        createPost(caption, parseFile, user);
                    }
                });
+                final Intent intent = new Intent(HomeActivity.this,FeedActivity.class);
+                startActivity(intent);
             }
         });
-
     }
 
     private void createPost(String caption, ParseFile imageFile, ParseUser user) {
@@ -78,35 +113,17 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
+                    posts.add(newPost);
+                    postAdapter.notifyItemInserted(0);
                     Log.d("HomeActivity","Create post Success!");
                 } else {
                     e.printStackTrace();
                 }
             }
         });
+
     }
 
-
-    private void loadTopPosts() {
-        final Post.Query postQuery = new Post.Query();
-        postQuery.getTop().withUser();
-
-        postQuery.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> objects, ParseException e) {
-                if (e == null) {
-                    for (int i = 0; i < objects.size(); ++i) {
-                        Log.d("HomeActivity", "Post[" + i + "] = "
-                                + objects.get(i).getDescription()
-                                + "\nusername = " + objects.get(i).getUser().getUsername()
-                        );
-                    }
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
 
     public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
@@ -120,7 +137,6 @@ public class HomeActivity extends AppCompatActivity {
         Uri fileProvider = FileProvider.getUriForFile(HomeActivity.this, "com.codepath.fileprovider", photoFile);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
         if (intent.resolveActivity(getPackageManager()) != null) {
-            // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
         }
     }
@@ -146,10 +162,25 @@ public class HomeActivity extends AppCompatActivity {
                 // Load the taken image into a preview
                 ImageView ivPreview = (ImageView) findViewById(R.id.ivPreview);
                 ivPreview.setImageBitmap(takenImage);
+
+                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+                takenImage.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+
+                ParseFile parseImage = new ParseFile(outStream.toByteArray());
+
+                Post newPost = new Post();
+                newPost.setImage(parseImage);
+
+                String descriptionInput = captionInput.getText().toString();
+                newPost.setDescription(descriptionInput);
+
+                ParseUser author = ParseUser.getCurrentUser();
+                newPost.setUser(author);
             } else {
                 Toast.makeText(this, "Picture was not taken!", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
 
 }

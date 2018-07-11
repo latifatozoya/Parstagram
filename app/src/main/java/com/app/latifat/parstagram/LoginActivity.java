@@ -13,7 +13,7 @@ import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private EditText usernameInput;
     private EditText passwordInput;
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         usernameInput = findViewById(R.id.username_et);
         passwordInput = findViewById(R.id.password_et);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if(e == null) {
                     Log.d("LoginActivity", "Login Successful");
-                    final Intent intent = new Intent(MainActivity.this,FeedActivity.class);
+                    final Intent intent = new Intent(LoginActivity.this,FeedActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     Log.d("SignupActivity", "Sign up Successful");
-                    final Intent intent = new Intent(MainActivity.this,HomeActivity.class);
+                    final Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
                     startActivity(intent);
                     finish();
                 } else {

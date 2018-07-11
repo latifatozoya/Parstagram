@@ -11,6 +11,8 @@ public class ParseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
+        ParseObject.registerSubclass(TodoItem.class);
+
         ParseObject.registerSubclass(Post.class);
         final Parse.Configuration configuration = new Parse.Configuration.Builder(this)
                 .applicationId("latifatozoya")

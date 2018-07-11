@@ -8,6 +8,7 @@ import com.parse.ParseUser;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
+
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_USER= "user";
@@ -43,8 +44,11 @@ public class Post extends ParseObject {
 
         public Query getTop() {
             setLimit(20);
+            orderByDescending("createdAt");
             return this;
         }
+
+
         public Query withUser() {
              include("user");
              return this;
