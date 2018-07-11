@@ -3,6 +3,7 @@ package com.app.latifat.parstagram;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
 
+    private SwipeRefreshLayout swipeContainer;
     private Button postbtn;
     private Button Profilebtn;
     RecyclerView rvposts;
@@ -29,6 +31,21 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeContainer.setRefreshing(false);
+                fetchTimelineAsync(0);
+            }
+        });
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
 
         Profilebtn = (Button) findViewById(R.id.profilebtn);
         postbtn = (Button) findViewById(R.id.picbtn);
@@ -58,6 +75,11 @@ public class FeedActivity extends AppCompatActivity {
         populateTimeline();
 
     }
+
+    public void fetchTimelineAsync(int page) {
+        populateTimeline();
+    }
+
 
     public void populateTimeline() {
 
