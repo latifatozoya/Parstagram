@@ -20,12 +20,16 @@ import android.widget.Toast;
 import com.app.latifat.parstagram.model.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import java.io.File;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private static final String imagePath = "photo.jpg";
     private EditText captionInput;
     private Button postBtn;
 
@@ -44,7 +48,44 @@ public class HomeActivity extends AppCompatActivity {
 
         View view = findViewById(R.id.home);
         onLaunchCamera(view);
+
+        postBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               final String caption = captionInput.getText().toString();
+               final ParseUser user = ParseUser.getCurrentUser();
+
+               final File file =  getPhotoFileUri(photoFileName);
+               final ParseFile parseFile = new ParseFile(file);
+               parseFile.saveInBackground(new SaveCallback() {
+                   @Override
+                   public void done(ParseException e) {
+                       createPost(caption, parseFile, user);
+                   }
+               });
+            }
+        });
+
     }
+
+    private void createPost(String caption, ParseFile imageFile, ParseUser user) {
+        final Post newPost = new Post();
+        newPost.setDescription(caption);
+        newPost.setUser(user);
+        newPost.setImage(imageFile);
+
+        newPost.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    Log.d("HomeActivity","Create post Success!");
+                } else {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
 
     private void loadTopPosts() {
         final Post.Query postQuery = new Post.Query();
