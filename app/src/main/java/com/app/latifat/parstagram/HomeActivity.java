@@ -97,8 +97,6 @@ public class HomeActivity extends AppCompatActivity {
                        createPost(caption, parseFile, user);
                    }
                });
-                final Intent intent = new Intent(HomeActivity.this,FeedActivity.class);
-                startActivity(intent);
             }
         });
     }
@@ -115,6 +113,8 @@ public class HomeActivity extends AppCompatActivity {
                 if (e == null) {
                     posts.add(newPost);
                     postAdapter.notifyItemInserted(0);
+                    final Intent intent = new Intent(HomeActivity.this,FeedActivity.class);
+                    startActivity(intent);
                     Log.d("HomeActivity","Create post Success!");
                 } else {
                     e.printStackTrace();

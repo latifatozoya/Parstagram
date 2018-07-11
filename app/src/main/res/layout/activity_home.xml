@@ -74,12 +74,4 @@
         android:background="@drawable/instagram_user_outline_24" />
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvPost"
-        android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="58dp" />
-
 </RelativeLayout>
