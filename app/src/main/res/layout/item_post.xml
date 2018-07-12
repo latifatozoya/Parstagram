@@ -16,17 +16,6 @@
         android:text="username"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvUserName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/ivProfileImage"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="15dp"
-        android:text="username"
-        android:textStyle="bold" />
-
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="match_parent"
@@ -42,9 +31,10 @@
         android:id="@+id/tvBody"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvUserName2"
-        android:layout_marginLeft="7dp"
-        android:layout_toEndOf="@+id/tvUserName2"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ivProfileImage"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="Body" />
@@ -54,10 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvUserName2"
-        android:layout_marginTop="18dp"
-        android:layout_marginLeft="8dp"
-        android:text="Date" />
+        android:layout_below="@+id/tvBody"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="10dp"
+        android:text="Time" />
 
     <View
         android:id="@+id/divider3"

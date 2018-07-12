@@ -1,5 +1,8 @@
 package com.app.latifat.parstagram.model;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -13,8 +16,8 @@ public class Post extends ParseObject {
     private static final String KEY_IMAGE = "image";
     private static final String KEY_USER= "user";
 
-    public String getDescription() {
-        return getString(KEY_DESCRIPTION);
+    public Spanned getDescription() {
+        return Html.fromHtml("<b>" + getUser().getUsername() + "</b>" + "     " + getString(KEY_DESCRIPTION));
     }
 
     public void setDescription(String description) {
