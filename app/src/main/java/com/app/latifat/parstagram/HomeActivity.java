@@ -124,7 +124,6 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-
     public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
     public String photoFileName = "photo";

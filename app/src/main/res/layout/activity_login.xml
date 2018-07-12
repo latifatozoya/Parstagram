@@ -71,7 +71,7 @@
         android:layout_marginBottom="163dp"
         android:background="@drawable/btn_background"
         android:text="Log In"
-        android:textColor="#50FFFFFF" />
+        android:textColor="#30FFFFFF" />
 
     <TextView
         android:id="@+id/textView2"

@@ -1,6 +1,5 @@
 package com.app.latifat.parstagram;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -25,7 +24,6 @@ public class FeedActivity extends AppCompatActivity {
     RecyclerView rvposts;
     PostAdapter postAdapter;
     ArrayList<Post> posts;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
