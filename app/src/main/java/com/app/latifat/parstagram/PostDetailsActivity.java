@@ -16,7 +16,7 @@ public class PostDetailsActivity extends AppCompatActivity {
 
     Post post;
     Button feed_button, pic_button,profile_button;   //Button feedbtn, picbtn,profilebtn;
-    TextView tvUserName;
+    TextView tvUserName,tvUserName2;
     TextView tvBody;
     TextView tvDate;
     ImageView ivProfileImage;
@@ -29,6 +29,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         post=getIntent().getParcelableExtra("Post");
         tvBody = (TextView) findViewById(R.id.tvBody);
         tvUserName = (TextView) findViewById(R.id.tvUserName);
+        tvUserName2 = (TextView) findViewById(R.id.tvUserName2);
         tvDate = (TextView) findViewById(R.id.tvDate);
         ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
 
@@ -66,6 +67,7 @@ public class PostDetailsActivity extends AppCompatActivity {
 
         tvBody.setText(post.getDescription());
         tvUserName.setText(post.getUser().getUsername());
+        tvUserName2.setText(post.getUser().getUsername());
         tvDate.setText(PostRelativeDate.getRelativeTimeAgo(post.getCreatedAt().toString()));
 
         GlideApp.with(this)
