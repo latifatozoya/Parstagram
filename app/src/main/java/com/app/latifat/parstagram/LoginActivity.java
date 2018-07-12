@@ -23,30 +23,39 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        ParseUser user = ParseUser.getCurrentUser();
+        if (user == null) {
+           // super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_login);
 
-        usernameInput = findViewById(R.id.username_et);
-        passwordInput = findViewById(R.id.password_et);
-        loginBtn = findViewById(R.id.login_btn);
-        signupBtn = findViewById(R.id.signup_btn);
+            usernameInput = findViewById(R.id.username_et);
+            passwordInput = findViewById(R.id.password_et);
+            loginBtn = findViewById(R.id.login_btn);
+            signupBtn = findViewById(R.id.signup_btn);
 
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String username = usernameInput.getText().toString();
-                final String password = passwordInput.getText().toString();
+            loginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final String username = usernameInput.getText().toString();
+                    final String password = passwordInput.getText().toString();
 
-                login(username, password);
-            }
-        });
+                    login(username, password);
+                }
+            });
 
-        signupBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                signup();
-            }
+            signupBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    signup();
+                }
 
-        });
+            });
+        }
+        else {
+            Intent intent = new Intent(LoginActivity.this,FeedActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
 
@@ -57,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if(e == null) {
                     Log.d("LoginActivity", "Login Successful");
-                    final Intent intent = new Intent(LoginActivity.this,FeedActivity.class);
+                    Intent intent = new Intent(LoginActivity.this,FeedActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
