@@ -22,10 +22,5 @@ public class ParseApplication extends Application {
 
         Parse.initialize(configuration);
 
-        //OkHttpClient.Builder builder = new OkHttpClient.Builder();
-        //HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
-        //httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        //builder.networkInterceptors().add(httpLoggingInterceptor);
-
     }
 }

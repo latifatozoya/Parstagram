@@ -58,7 +58,7 @@
         android:background="@drawable/textbox_background"
         android:ems="10"
         android:hint="   Password"
-        android:inputType="textPersonName"
+        android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textColorHint="#dddddd" />
 
@@ -88,8 +88,9 @@
         android:layout_width="51dp"
         android:layout_height="41dp"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/textView"
-        android:layout_marginStart="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="48dp"
         app:srcCompat="@drawable/icon" />
 
 
