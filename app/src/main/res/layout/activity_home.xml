@@ -16,6 +16,15 @@
         android:layout_marginBottom="180dp"
         android:text="post" />
 
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="136dp"
+        android:visibility="invisible" />
+
     <EditText
         android:id="@+id/caption_et"
         android:layout_width="350dp"

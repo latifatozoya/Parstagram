@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.app.latifat.parstagram.model.Post;
@@ -55,6 +56,10 @@ public class HomeActivity extends AppCompatActivity {
         feed_Button = (Button) findViewById(R.id.feedbtn);
         pic_button = (Button) findViewById(R.id.picbtn);
         profile_Button = (Button) findViewById(R.id.profilebtn);
+        final ProgressBar pb = (ProgressBar) findViewById(R.id.pbLoading);
+
+        // run a background job and once complete
+        pb.setVisibility(ProgressBar.INVISIBLE);
 
         posts = new ArrayList<>();
         postAdapter = new PostAdapter(posts);
@@ -86,6 +91,7 @@ public class HomeActivity extends AppCompatActivity {
         postBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pb.setVisibility(ProgressBar.VISIBLE);
                final String caption = captionInput.getText().toString();
                final ParseUser user = ParseUser.getCurrentUser();
 
@@ -95,6 +101,7 @@ public class HomeActivity extends AppCompatActivity {
                    @Override
                    public void done(ParseException e) {
                        createPost(caption, parseFile, user);
+                       pb.setVisibility(ProgressBar.INVISIBLE);
                    }
                });
             }
