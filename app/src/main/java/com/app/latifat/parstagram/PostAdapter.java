@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.latifat.parstagram.model.Post;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -51,6 +52,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         GlideApp.with(context)
                 .load(post.getImage().getUrl())
                 .into(holder.ivProfileImage);
+
+        ParseUser user = post.getUser();
+
+        if(user.getParseFile("profilepic") != null) {
+            String avi = user.getParseFile("profilepic").getUrl();
+
+            GlideApp.with(context)
+                    .load(avi)
+                    .into(holder.uploadImage);
+        }
+        else{
+            GlideApp.with(context)
+                    .load("https://transhumane-partei.de/wp-content/uploads/2016/04/blank-profile-picture-973461_960_720.png")
+                    .into(holder.uploadImage);
+        }
     }
 
     @Override
@@ -62,10 +78,12 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView tvBody;
         public TextView tvUsername;
         public TextView tvDate;
+        public ImageView uploadImage;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            uploadImage = (ImageView) itemView.findViewById(R.id.uploadImage);
             ivProfileImage = (ImageView) itemView.findViewById(R.id.ivProfileImage);
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);

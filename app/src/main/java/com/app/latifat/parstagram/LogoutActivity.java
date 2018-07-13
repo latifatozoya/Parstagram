@@ -13,6 +13,7 @@ public class LogoutActivity extends AppCompatActivity {
     private Button logoutBtn;
     private Button feed_Button;
     private Button pic_button;
+    private Button profilepic_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,22 +21,28 @@ public class LogoutActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logout);
 
         logoutBtn = (Button) findViewById(R.id.logout_btn);
+        profilepic_button = (Button) findViewById(R.id.profilepic_btn);
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser();
-
                 final Intent intent = new Intent(LogoutActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        profilepic_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Intent intent = new Intent(LogoutActivity.this,ProfilePicture.class);
                 startActivity(intent);
             }
         });
 
         feed_Button = (Button) findViewById(R.id.feedbtn);
         pic_button = (Button) findViewById(R.id.picbtn);
-
-
 
         feed_Button.setOnClickListener(new View.OnClickListener() {
 
@@ -52,6 +59,5 @@ public class LogoutActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.latifat.parstagram.model.Post;
+import com.parse.ParseUser;
 
 public class PostDetailsActivity extends AppCompatActivity {
 
@@ -20,6 +21,7 @@ public class PostDetailsActivity extends AppCompatActivity {
     TextView tvBody;
     TextView tvDate;
     ImageView ivProfileImage;
+    ImageView uploadImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         tvDate = (TextView) findViewById(R.id.tvDate);
         ivProfileImage = (ImageView) findViewById(R.id.ivProfileImage);
+        uploadImage = (ImageView) findViewById(R.id.uploadImage);
         feed_button = (Button) findViewById(R.id.feedbtn);
         pic_button = (Button) findViewById(R.id.picbtn);
         profile_button = (Button) findViewById(R.id.profilebtn);
@@ -70,6 +73,21 @@ public class PostDetailsActivity extends AppCompatActivity {
         GlideApp.with(this)
                 .load(post.getImage().getUrl())
                 .into(ivProfileImage);
+
+        ParseUser user = post.getUser();
+
+        if(user.getParseFile("profilepic") != null) {
+            String avi = user.getParseFile("profilepic").getUrl();
+
+            GlideApp.with(this)
+                    .load(avi)
+                    .into(uploadImage);
+        }
+        else{
+            GlideApp.with(this)
+                    .load("https://transhumane-partei.de/wp-content/uploads/2016/04/blank-profile-picture-973461_960_720.png")
+                    .into(uploadImage);
+        }
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

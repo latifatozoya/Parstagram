@@ -30,7 +30,7 @@ tools:context=".PostDetailsActivity">
         android:textStyle="bold" />
 
     <ImageView
-    android:id="@+id/imageView2"
+    android:id="@+id/uploadImage"
     android:layout_width="41dp"
     android:layout_height="35dp"
     android:layout_alignBottom="@+id/tvUserName"
@@ -43,7 +43,7 @@ tools:context=".PostDetailsActivity">
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignTop="@+id/tvUserName"
-    android:layout_marginLeft="140dp"
+    android:layout_marginLeft="120dp"
     android:layout_marginTop="2dp"
     android:layout_toEndOf="@+id/tvUserName"
     android:text="Date" />
