@@ -71,7 +71,6 @@ public class FeedActivity extends AppCompatActivity {
         rvposts.setAdapter(postAdapter);
 
         populateTimeline();
-
     }
 
     public void fetchTimelineAsync(int page) {

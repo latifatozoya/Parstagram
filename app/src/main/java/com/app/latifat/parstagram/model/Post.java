@@ -59,38 +59,3 @@ public class Post extends ParseObject {
     }
 }
 
-
-/* @ParseClassName("Comment")
-public class Comment extends ParseObject {
-    // ...
-
-    // Associate each comment with a user
-    public void setOwner(ParseUser user) {
-        put("owner", user);
-    }
-
-    // Get the user for this comment
-    public ParseUser getOwner()  {
-        return getParseUser("owner");
-    }
-
-    // Associate each comment with a post
-    public void setPost(Post post) {
-        put("post", post);
-    }
-
-    // Get the post for this item
-    public Post getPost()  {
-        return (Post) getParseObject("post");
-    }
-}
-
-    // Create the post
-    Post post = new Post("Welcome Spring!");
-    // Get the user
-    ParseUser currentUser = ParseUser.getCurrentUser();
-    // Create the comment
-    Comment comment = new Comment("Get milk and eggs");
-comment.setPost(post);
-        comment.setOwner(currentUser);
-        comment.saveInBackground(); */

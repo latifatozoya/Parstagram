@@ -159,6 +159,19 @@ public class HomeActivity extends AppCompatActivity {
         return file;
     }
 
+    // PICK_PHOTO_CODE is a constant integer
+
+    public final static int PICK_PHOTO_CODE = 1046;
+
+    // Trigger gallery selection for a photo
+    public void onPickPhoto(View view) {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(intent, PICK_PHOTO_CODE);
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {

@@ -2,10 +2,12 @@ package com.app.latifat.parstagram;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -67,6 +69,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                     .load("https://transhumane-partei.de/wp-content/uploads/2016/04/blank-profile-picture-973461_960_720.png")
                     .into(holder.uploadImage);
         }
+
     }
 
     @Override
@@ -79,6 +82,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         public TextView tvUsername;
         public TextView tvDate;
         public ImageView uploadImage;
+        public Button favorite;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -88,8 +92,19 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvBody = (TextView) itemView.findViewById(R.id.tvBody);
             tvUsername = (TextView) itemView.findViewById(R.id.tvUserName);
             tvDate = (TextView) itemView.findViewById(R.id.tvDate);
+            favorite = (Button) itemView.findViewById(R.id.bt1);
 
             itemView.setOnClickListener(this);
+
+            favorite.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    if (view.getId() == R.id.bt1 ) {
+                        view.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ufi_heart_active));
+                    } else {
+                        view.setBackgroundDrawable(ContextCompat.getDrawable(context, R.drawable.ufi_heart));
+                    }
+                }
+            });
         }
 
         public void onClick(final View v) {

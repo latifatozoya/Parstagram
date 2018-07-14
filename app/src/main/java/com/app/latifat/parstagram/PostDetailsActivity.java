@@ -2,6 +2,7 @@ package com.app.latifat.parstagram;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
@@ -22,6 +23,7 @@ public class PostDetailsActivity extends AppCompatActivity {
     TextView tvDate;
     ImageView ivProfileImage;
     ImageView uploadImage;
+    Button favorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         feed_button = (Button) findViewById(R.id.feedbtn);
         pic_button = (Button) findViewById(R.id.picbtn);
         profile_button = (Button) findViewById(R.id.profilebtn);
+        favorite = (Button) findViewById(R.id.bt1);
         Log.d("PostDetailsActivity", String.format("Showing details for '%s'", post.getClass()));
 
         tvBody.setMovementMethod(new ScrollingMovementMethod());
@@ -62,6 +65,16 @@ public class PostDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 final Intent intent = new Intent(PostDetailsActivity.this,HomeActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        favorite.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                if (view.getId() == R.id.bt1 ) {
+                    view.setBackgroundDrawable(ContextCompat.getDrawable(PostDetailsActivity.this, R.drawable.ufi_heart_active));
+                } else {
+                    view.setBackgroundDrawable(ContextCompat.getDrawable(PostDetailsActivity.this, R.drawable.ufi_heart));
+                }
             }
         });
 
